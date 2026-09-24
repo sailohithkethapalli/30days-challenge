@@ -4,4 +4,4 @@
 4. calculate the average marks
 5. calculate the percentage
 6. diplay the total,average,percentage
-7.stop
+7. stop
