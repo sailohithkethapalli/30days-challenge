@@ -1,0 +1,46 @@
+#include <stdio.h>
+#define ZONES 5
+#define DAYS 7
+void getValues(int usage[ZONES][DAYS], int dailyTarget[ZONES]) {
+for (int z = 0; z < ZONES; z++) {
+        do {
+            printf("Enter daily target for zone %d (100-50000 litres): ", z + 1);
+            scanf("%d", &dailyTarget[z]);
+        } while (dailyTarget[z] < 100 || dailyTarget[z] > 50000);
+
+        for (int d = 0; d < DAYS; d++) {
+            do {
+                printf("Zone %d, day %d usage (0-50000 litres): ", z + 1, d + 1);
+                scanf("%d", &usage[z][d]);
+            } while (usage[z][d] < 0 || usage[z][d] > 50000);
+        }
+    }
+}
+void report(int usage[ZONES][DAYS], int dailyTarget[ZONES]) {
+    for (int z = 0; z < ZONES; z++) {
+        int weeklyTotal = 0;
+
+        printf("\nZone %d:\n", z + 1);
+
+        for (int d = 0; d < DAYS; d++) {
+            weeklyTotal += usage[z][d];
+
+            if (usage[z][d] > dailyTarget[z]) {
+                printf("  Day %d: %d litres — ALERT: above target\n",
+                       d + 1, usage[z][d]);
+            }
+        }
+
+        printf("  Weekly total: %d litres\n", weeklyTotal);
+    }
+}
+
+int main(void) {
+    int usage[ZONES][DAYS];
+    int dailyTarget[ZONES];
+
+    getValues(usage, dailyTarget);
+    report(usage, dailyTarget);
+
+    return 0;
+}
